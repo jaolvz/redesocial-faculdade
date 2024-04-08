@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facultech - Cadastro</title>
+    <link rel="stylesheet" href="{% static 'cadastro/css/cadastro.css'%}">
+</head>
+<body>
+    <header>
+        <h1>Facultech</h1>
+    </header>
+
+   <main>
+
+    <h1>Cadastro</h1>
+    <form action="" method="POST" >
+        {% csrf_token %}
+        <input type="text" name="usuario" placeholder="Usuario">
+        <br>
+        <input type="email"   name="email"  placeholder="Email">
+        <br>
+        <input type="password" name="senha" placeholder="Senha">
+        <br>
+        <input type="submit" value="Cadastrar"">
+    </form>
+   </main>
+
+   <footer>
+
+    <h1>Feito por João Vitor Gonçalves de Oliveira</h1>
+   </footer>
+
+
+</head>
+</body>
+</html>

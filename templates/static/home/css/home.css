@@ -1,0 +1,92 @@
+@import url(../../basico/css/basico.css);
+
+.cabeçalho h1{
+    font-family: 'fonteLogo';
+    opacity: 0;
+    animation: fade 2s ease-in forwards;
+    
+}
+
+body{
+ height: 100vh;
+ width: 100vw;
+}
+.cabeçalho{
+    height: 20vh;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-bottom: 0.1875em solid black;
+
+    
+}
+.cabeçalho h1{
+    font-size: 4vw; /* Unidade de medida para o view width*/
+    height: 100%;
+    display: flex;
+    align-items: center; 
+    justify-content: center;
+
+}
+
+
+.login_cadastro button
+{
+    padding: 0.7vw 1vw 0.7vw 1vw ;
+    font-size: 1vw;
+    margin: 0 10px 10px 0;
+    border-radius: 10px;
+    opacity: 0;
+    animation: fade 2s ease-in forwards;
+
+    
+}
+
+.slider{  
+    height: 80vh;
+    width: 100vw;
+    position: relative;
+}
+.img_Fundo{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.9;
+    filter: blur(5px);
+    z-index: 1;
+}
+
+.conteudo{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    padding: 0.7vw 1vw 0.7vw 1vw;
+    border-radius: 5px;
+    opacity: 0;
+    animation: fade 2s ease-in forwards;
+}
+
+@keyframes fade {
+    from{opacity: 0;}
+    to{opacity: 1;}
+    
+}
+
+.conteudo h1{
+    font-size: 4vw;
+    font-family: 'fonteLogo';
+}
+
+p span{
+    font-family: 'fonteLogo';
+}
+p{
+    font-size: 1.4vw;
+}

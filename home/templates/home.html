@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Facultech - Home </title>
+    <link rel="stylesheet" href="{% static 'home/css/home.css'%}">
+</head>
+<body>
+    <div class="cabeçalho">
+      
+         <h1>FACULTECH</h1>
+        <div class="login_cadastro">  <a href="{% url 'usuarios:login' %}"> <button>Entrar</button></a>
+            <a href="{% url 'usuarios:cadastro' %}"> <button>Criar conta</button> </a>
+        </div>
+    </div>
+    <div class="slider">
+        <div class="conteudo">
+            <h1>FACULTECH</h1>
+    <p>O <span>FACULTECH </span>é uma rede social projetada exclusivamente para a comunidade acadêmica da FAETERJ 
+        (Faculdade de Educação Tecnológica do Estado do Rio de Janeiro). Esta rede social foi desenvolvida com o 
+        objetivo de promover a interação entre alunos da instituição.</p>
+    </div>
+    <img src="{% static 'home/imgs/faeterj.jpg'%}" class="img_Fundo" alt="faeterj">
+
+    </div>
+        
+   
+</body>
+</html>
