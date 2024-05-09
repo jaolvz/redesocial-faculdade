@@ -5,9 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Facultech - Cadastro</title>
-    <link rel="stylesheet" href="{% static 'cadastro/css/cadastro.css'%}">
+    <link rel="stylesheet" href="{% static 'usuarios/css/cadastro.css'%}">
 </head>
 <body>
+    {% if user.is_authenticated %}
+        <script>window.location.href = "{% url 'feed:homepage' %}";</script>
+    {% else %}
     <header>
         <h1>Facultech</h1>
     </header>
@@ -15,13 +18,17 @@
    <main>
 
     <h1>Cadastro</h1>
-    <form action="" method="POST" >
+    <form action="{% url 'usuarios:cadastro' %}" method="POST"  enctype="multipart/form-data">
         {% csrf_token %}
         <input type="text" name="usuario" placeholder="Usuario">
+        <br>
+        <input type="text" name="nome" placeholder="Primeiro Nome">
         <br>
         <input type="email"   name="email"  placeholder="Email">
         <br>
         <input type="password" name="senha" placeholder="Senha">
+        <br>
+        <input type="file" name="imagem_perfil" accept="image/*">
         <br>
         <input type="submit" value="Cadastrar"">
     </form>
@@ -29,10 +36,9 @@
 
    <footer>
 
-    <h1>Feito por João Vitor Gonçalves de Oliveira</h1>
+    <h1>@jaolvz</h1>
    </footer>
 
-
-</head>
+   {% endif %}
 </body>
 </html>

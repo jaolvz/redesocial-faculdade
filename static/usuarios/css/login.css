@@ -1,0 +1,55 @@
+@import url(../../basico/css/basico.css);
+
+body {
+    overflow: hidden;
+    touch-action: manipulation;
+    user-zoom: fixed;
+}
+
+header{
+    height: 10vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'fonteLogo';
+    font-size: 1.4vw;
+    border-bottom: 1px solid;
+}
+
+
+main{
+    width: 100vw;
+    height: 85vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'fonteLogo';
+    font-size: 1vw;
+}
+
+
+main form{
+    padding: 2vh;
+    border: 1px solid ;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+form input{
+    padding: 10px;
+    text-align: center;
+}
+
+footer{
+    width: 100vw;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'fonteLogo';
+    font-size: 0.4vw;
+}

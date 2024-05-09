@@ -8,24 +8,27 @@
     <link rel="stylesheet" href="{% static 'home/css/home.css'%}">
 </head>
 <body>
+    {% if user.is_authenticated %}
+        <script>window.location.href = "{% url 'feed:homepage' %}";</script>
+    {% else %}
     <div class="cabeçalho">
       
-         <h1>FACULTECH</h1>
+         <h1>FACULbook</h1>
         <div class="login_cadastro">  <a href="{% url 'usuarios:login' %}"> <button>Entrar</button></a>
             <a href="{% url 'usuarios:cadastro' %}"> <button>Criar conta</button> </a>
         </div>
     </div>
     <div class="slider">
         <div class="conteudo">
-            <h1>FACULTECH</h1>
-    <p>O <span>FACULTECH </span>é uma rede social projetada exclusivamente para a comunidade acadêmica da FAETERJ 
+            <h1>FACULbook</h1>
+    <p>O <span>FACULbook </span>é uma rede social projetada exclusivamente para a comunidade acadêmica da FAETERJ 
         (Faculdade de Educação Tecnológica do Estado do Rio de Janeiro). Esta rede social foi desenvolvida com o 
         objetivo de promover a interação entre alunos da instituição.</p>
     </div>
     <img src="{% static 'home/imgs/faeterj.jpg'%}" class="img_Fundo" alt="faeterj">
 
     </div>
-        
+    {% endif %}
    
 </body>
 </html>

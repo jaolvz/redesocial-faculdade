@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'feed/css/meuperfil.css'%}">
+    <title>Facultech - Meu perfil</title>
+</head>
+<body>
+    <header> <h1>Faculbook</h1></header>
+    <main> 
+        <div class="quadro">
+            <h1 class="seuperfil">Meu perfil</h1>
+            <div class="quadro_foto">
+                <div class="foto_perfil">
+                    <img src="{{ imagem_perfil_url }} " alt="">
+                </div>
+            </div>
+            <div class="quadro_info">
+                <h5>Nome</h5>
+                <h1 class="h1_info" >{{user.first_name}}</h1>
+                <br>
+                <br>
+                <h5>Usuário</h5>
+                <h1 class="h1_info" >{{user.username}}</h1>
+                <br>
+                <br>
+                <h5>Email</h5>
+                <h1 class="h1_info">{{user.email}}</h1>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <h3>@jaolvz</h3>
+    </footer>
+    <script src="{% static 'feed/js/script.js'%}"></script>
+</body>
+</html>

@@ -1,0 +1,81 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'feed/css/feed.css'%}">
+    <title>Document</title>
+</head>
+<body>
+    
+    <header> 
+        <div class="logo"><h1>Facultech</h1></div>
+        <a href="{% url 'feed:meuperfil' %}"><div class="infos"> <h5>Meu perfil</h5></a>
+        <a href="{% url 'feed:sair' %}">Sair</a></div>
+    </header>
+    <main>
+        <div class="esquerdaMain">
+            <ul>
+                <li>Inicio</li>
+                <li>Grupos</li>
+                <li>Coruja</li>
+                <li>Portal de Atendimento</li>
+                <li>Grupo Atlética</li>
+           </ul>
+        </div>
+        <div class="direitaMain">
+            <h4>Todos usuários</h4>    
+           <ul>
+            {% for usuario in usuarios %} {# Buscando todos os usuários e listando,menos, oque está logado na #}
+                {% if usuario != request.user %}
+                <li>{{ usuario.username }}</li>
+                {% endif %}
+            {% endfor %}
+        </ul> 
+                
+            </div>
+    
+        <div class="meioMain">
+            <div class="novo_post">
+
+                <h1>Nova Publicação </h1>
+                <form action="{% url 'feed:upload_post' %}" class="form_msg" method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                <textarea name="texto" placeholder="Oque você tem para compartilhar?"  class="area_text" id="texto" cols="30" rows="5"></textarea>
+                <input type="submit" class="enviar_texto" value="Enviar">
+                </form>
+           </div>
+
+            <div class="conteudo">
+                {% for post in posts|dictsortreversed:"postado" %}
+                <div class="post">
+                    <div class="cabeçalho_post">
+                        <div class="post_foto">
+                            {% if post.autor.perfil.imagem_perfil %}
+                                <!-- Se sim, exibe a imagem de perfil -->
+                                <img id="foto_post" src="{{ post.autor.perfil.imagem_perfil.url }}" alt="Foto de perfil de {{ post.autor.username }}">
+                            {% else %}
+                                <!-- Se não, exibe uma imagem padrão -->
+                                <img id="foto_post" src="{% static 'caminho/para/imagem_padrao.jpg' %}" alt="Foto de perfil padrão">
+                            {% endif %}
+                        </div>
+            
+                        <div class="post_info">
+                            <h2 class="post_autor"><strong> {{ post.autor.username }}</strong></h2>
+                            <p class="post_data">{{ post.postado }}</p>
+                        </div>
+                    </div>
+                    <p class="post_conteudo">{{ post.conteudo }}</p>
+                </div>
+            {% endfor %}
+            </div>
+                
+       </div>
+
+         
+       
+    </main>
+
+</body>
+</html>
