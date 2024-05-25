@@ -1,2 +1,4 @@
 venv/
 media/imagens_perfil/*
+!media/imagens_perfil/.gitkeep
+db.sqlite3
