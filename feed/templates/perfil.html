@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'feed/css/meuperfill.css'%}">
+    <title>Faculbook </title>
+</head>
+<body>
+    <header> <a href="{% url 'feed:homepage' %}""><h1>Faculbook</h1></a></header>
+    <main> 
+
+        <div class="informacoes_usuario">
+
+            <img src="{{ imagem_perfil_url }} " alt="">
+            <h1>{{user.first_name.capitalize}} - @{{user.username}}</h1>
+            <h3></h3>
+        </div>
+        <h1>Posts feitos pelo {{user.first_name}}</h1>
+        <div class="posts">
+            {% for post in posts_do_usuario %}
+            <div class="post">
+                <div class="cabeçalho_post">
+                    <div class="post_foto">
+                        {% if post.autor.perfil.imagem_perfil %}
+                            <img id="foto_post" src="{{ post.autor.perfil.imagem_perfil.url }}" alt="Foto de perfil de {{ post.autor.username }}">
+                        {% else %}
+                            <img id="foto_post" src="{% static 'caminho/para/imagem_padrao.jpg' %}" alt="Foto de perfil padrão">
+                        {% endif %}
+                    </div>
+        
+                    <div class="post_info">
+                       
+                       <div class="nome_username" >  <h2 class="post_autor"><strong> {{ post.autor.first_name }}</strong></h2>
+                           <h3 id="username_usuario"> - @{{ post.autor.username }}</h3>    
+                    </div>
+                        <p class="post_data">{{ post.get_dataformatada}}</p>
+                    </div>
+                </div>
+                <h3 class="post_titulo">{{post.titulo}}</h3>
+                <p class="post_conteudo">{{ post.conteudo }}</p>
+            </div>
+            {% endfor %}
+           
+            
+
+        </div>
+        
+        
+          
+    </main>
+    <footer>
+        <h3>@jaolvz</h3>
+    </footer>
+    <script src="{% static 'feed/js/script.js'%}"></script>
+</body>
+</html>

@@ -4,14 +4,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'feed/css/feed.css'%}">
-    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'feed/css/feeed.css'%}">
+    <title>Faculbook - Home </title>
 </head>
 <body>
     
     <header> 
-        <div class="logo"><h1>Facultech</h1></div>
-        <a href="{% url 'feed:meuperfil' %}"><div class="infos"> <h5>Meu perfil</h5></a>
+        <div class="logo"><h1>Faculbook</h1></div>
+        <a href="{% url 'feed:perfil' request.user.username %}"><div class="infos"> <h5>Meu perfil</h5></a>
         <a href="{% url 'feed:sair' %}">Sair</a></div>
     </header>
     <main>
@@ -19,17 +19,20 @@
             <ul>
                 <li>Inicio</li>
                 <li>Grupos</li>
-                <li>Coruja</li>
-                <li>Portal de Atendimento</li>
-                <li>Grupo Atlética</li>
            </ul>
         </div>
         <div class="direitaMain">
             <h4>Todos usuários</h4>    
            <ul>
-            {% for usuario in usuarios %} {# Buscando todos os usuários e listando,menos, oque está logado na #}
+            {% for usuario in usuarios %} 
                 {% if usuario != request.user %}
-                <li>{{ usuario.username }}</li>
+                <div>
+                    {% if usuario.perfil.imagem_perfil %}
+                                  <img id="foto_post" src="{{ usuario.perfil.imagem_perfil.url }}" alt="Foto de perfil de {{ post.autor.username }}">
+                              {% else %}
+                                  <img id="foto_post" src="{% static 'caminho/para/imagem_padrao.jpg' %}" alt="Foto de perfil padrão">
+                              {% endif %}
+                 <a href="{% url 'feed:perfil' usuario.username %}"> <li>{{ usuario.username }}</li></div></a>
                 {% endif %}
             {% endfor %}
         </ul> 
@@ -40,9 +43,10 @@
             <div class="novo_post">
 
                 <h1>Nova Publicação </h1>
-                <form action="{% url 'feed:upload_post' %}" class="form_msg" method="POST" enctype="multipart/form-data">
+                <form action="{% url 'feed:upload_post' %}"  class="form_msg" method="POST" enctype="multipart/form-data">
                     {% csrf_token %}
-                <textarea name="texto" placeholder="Oque você tem para compartilhar?"  class="area_text" id="texto" cols="30" rows="5"></textarea>
+                <input required placeholder="Titulo da sua postagem." class="txt_titulo" type="text" maxlength="50" name="titulo">
+                <textarea required name="texto_conteudo" placeholder="Oque você tem para compartilhar?"  class="area_text" id="texto" cols="30" rows="5"></textarea>
                 <input type="submit" class="enviar_texto" value="Enviar">
                 </form>
            </div>
@@ -53,22 +57,52 @@
                     <div class="cabeçalho_post">
                         <div class="post_foto">
                             {% if post.autor.perfil.imagem_perfil %}
-                                <!-- Se sim, exibe a imagem de perfil -->
                                 <img id="foto_post" src="{{ post.autor.perfil.imagem_perfil.url }}" alt="Foto de perfil de {{ post.autor.username }}">
                             {% else %}
-                                <!-- Se não, exibe uma imagem padrão -->
                                 <img id="foto_post" src="{% static 'caminho/para/imagem_padrao.jpg' %}" alt="Foto de perfil padrão">
                             {% endif %}
                         </div>
             
                         <div class="post_info">
-                            <h2 class="post_autor"><strong> {{ post.autor.username }}</strong></h2>
-                            <p class="post_data">{{ post.postado }}</p>
+                           
+                           <div class="nome_username" >  <h2 class="post_autor"><strong> {{ post.autor.first_name }}</strong></h2>
+                               <h3 id="username_usuario"> - @{{ post.autor.username }}</h3>    
+                        </div>
+                            <p class="post_data">{{ post.get_dataformatada}}</p>
                         </div>
                     </div>
+                    <h3 class="post_titulo">{{post.titulo}}</h3>
                     <p class="post_conteudo">{{ post.conteudo }}</p>
+                
+                    
+               
+                <div class="comentarios">
+                    {% for comentario in post.comentarios.all %}
+                    <div class="comentario">
+                        {% if post.autor.perfil.imagem_perfil %}
+                                <img id="foto_post" src="{{ comentario.autor.perfil.imagem_perfil.url }}" alt="Foto de perfil de {{ post.autor.username }}">
+                            {% else %}
+                                <img id="foto_post" src="{% static 'caminho/para/imagem_padrao.jpg' %}" alt="Foto de perfil padrão">
+                            {% endif %}
+                      <div class="conteudo_comentario">
+                          
+                        <p><strong>{{ comentario.autor.first_name}}</strong> </p>
+                        <p>{{ comentario.conteudo }}</p>
+                        <p class="comentario_data">{{ comentario.get_dataformatada }}</p>
+                      </div>
+                    </div>
+                {% endfor %}
                 </div>
+                
+                <form class="novo_comentario" action="{% url 'feed:upload_comentario' post.id %}"" method="post">
+                    {% csrf_token %}
+                    <textarea name="conteudo_comentario" rows="3" required placeholder="Adicione um comentário..."></textarea>
+                    <button type="submit">Comentar</button>
+                </form>
+                
+            </div>
             {% endfor %}
+            <</div>
             </div>
                 
        </div>

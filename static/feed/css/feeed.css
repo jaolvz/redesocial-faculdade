@@ -1,4 +1,7 @@
 @import url(../../basico/css/basico.css);
+:root{
+    --corFundo : rgb(221, 221, 221);
+}
 
 body{
     width: 100vw;
@@ -61,7 +64,7 @@ main{
 .novo_post{
     width: 100%;
     border-radius: 5px;
-    background-color: rgb(221, 221, 221);
+    background-color: var(--corFundo)
     padding: 20px;
 }
 .form_msg{
@@ -166,14 +169,45 @@ padding: 20px;
 }
 
 
+/*  COMENTARIOS POST  */
+
+.comentario{
+    display: flex;
+    margin-top: 20px;
+    padding-left: 20px;
+
+}
+.comentario img{
+
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+
+
+
+.conteudo_comentario{
+    margin-left: 10px;
+
+
+}
+
+
+
+
+
+/*  ENVIAR COMENTARIOPOST  */
+
 .novo_comentario{
-    background-color: aqua;
+    margin-top: 20px;
     display: flex;
     align-items: center;
 }
 .novo_comentario textarea{
     resize: none;
     width: 70%;
+    padding: 10px;
 
 }
 .novo_comentario button{
@@ -182,6 +216,7 @@ padding: 20px;
     width: 30%;
 
 }
+
 
 
 
@@ -227,6 +262,29 @@ padding: 20px;
 .direitaMain h4{
     font-family: 'fonteLogo'
 } 
+.direitaMain ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.direitaMain ul img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+.direitaMain ul div{
+    display: flex;
+    margin-top: 10px;
+    background-color: var(--corFundo);
+    padding:20px;
+    border-radius: 20px;
+    width: 50%;
+    align-items: center;
+
+
+}
 
 @media screen and (max-width:1024px) {
 
