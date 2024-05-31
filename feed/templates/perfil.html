@@ -4,55 +4,82 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'feed/css/meuperfill.css'%}">
-    <title>Faculbook </title>
+    <link rel="stylesheet" href="{% static 'feed/css/perfil.css'%}">
+    <title>Faculbook</title>
 </head>
 <body>
-    <header> <a href="{% url 'feed:homepage' %}""><h1>Faculbook</h1></a></header>
-    <main> 
+    <header> 
+        <div class="logo"><a href="{% url 'feed:homepage' %}"><h1>Faculbook</h1></a></div>
+        <a href="{% url 'feed:perfil' request.user.username %}"><div class="infos"> 
+            <div>  {% if user.perfil.imagem_perfil %}
+                <img src="{{user.perfil.imagem_perfil.url }}" alt="Imagem de Perfil">
+            {% endif %}  <h4>{{user.username}}</h4></div></a>
+        <a href="{% url 'feed:sair' %}">Sair</a></div>
+    </header>
+    
+    <main>
+        <div class="informacoes_perfil">
 
-        <div class="informacoes_usuario">
-
-            <img src="{{ imagem_perfil_url }} " alt="">
-            <h1>{{user.first_name.capitalize}} - @{{user.username}}</h1>
-            <h3></h3>
-        </div>
-        <h1>Posts feitos pelo {{user.first_name}}</h1>
-        <div class="posts">
-            {% for post in posts_do_usuario %}
-            <div class="post">
-                <div class="cabeçalho_post">
-                    <div class="post_foto">
-                        {% if post.autor.perfil.imagem_perfil %}
-                            <img id="foto_post" src="{{ post.autor.perfil.imagem_perfil.url }}" alt="Foto de perfil de {{ post.autor.username }}">
-                        {% else %}
-                            <img id="foto_post" src="{% static 'caminho/para/imagem_padrao.jpg' %}" alt="Foto de perfil padrão">
-                        {% endif %}
-                    </div>
-        
-                    <div class="post_info">
-                       
-                       <div class="nome_username" >  <h2 class="post_autor"><strong> {{ post.autor.first_name }}</strong></h2>
-                           <h3 id="username_usuario"> - @{{ post.autor.username }}</h3>    
-                    </div>
-                        <p class="post_data">{{ post.get_dataformatada}}</p>
-                    </div>
-                </div>
-                <h3 class="post_titulo">{{post.titulo}}</h3>
-                <p class="post_conteudo">{{ post.conteudo }}</p>
-            </div>
-            {% endfor %}
-           
+            {% if user.perfil.imagem_perfil %}
+                <img src="{{usuario_perfil.perfil.imagem_perfil.url }}" alt="Imagem de Perfil">
+            {% endif %}
             
+            <h1> {{usuario_perfil.first_name.capitalize}} - @{{usuario_perfil.username}}</h1>
 
         </div>
-        
-        
-          
+
+
+        <div class="posts_usuario">
+            <h1>Posts de {{usuario_perfil.first_name.capitalize}}</h1>
+        {%for post in posts_do_usuario %}
+
+        <div class="post">
+            <div class="post_cabecalho">
+                {% if post.autor.perfil.imagem_perfil %}
+                <img src="{{ post.autor.perfil.imagem_perfil.url }}" alt="Imagem de Perfil">
+                {% endif %} 
+                <div class="informacoes_usuario_post">
+                    <h2>{{post.autor.first_name}} - @{{post.autor.username}}</h2>
+                    <h4>{{post.get_dataformatada}}</h4>
+                </div>     
+            </div>
+            <div class="post_conteudo">
+                <p>{{post.conteudo}}</p>
+            </div>
+            <div class="post_comentarios">
+                
+                {% for comentario in post.comentarios.all %}
+
+                <div class="comentario">
+                   
+                    {% if comentario.autor.perfil.imagem_perfil %}
+                    <img src="{{ comentario.autor.perfil.imagem_perfil.url }}" alt="Imagem de Perfil">
+                {% endif %}  
+                        <div class="comentario_informacoes">
+                            <h3>{{comentario.autor.first_name}} - @{{comentario.autor.username}}</h3>
+                            <p>{{comentario.conteudo}}</p>
+                            
+                        </div>
+
+                    
+                
+                </div>
+                {%endfor%}
+
+            </div>
+
+            <form  class="form_enviarComentario"  action="{% url 'feed:upload_comentario' post.id %}" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <textarea   required     placeholder="Comente..."  name="conteudo_comentario" ></textarea>
+                <input type="submit" value="comentar">
+            </form>
+
+        </div>
+
+        {%endfor%}
+    </div>
+
     </main>
-    <footer>
-        <h3>@jaolvz</h3>
-    </footer>
-    <script src="{% static 'feed/js/script.js'%}"></script>
+
 </body>
 </html>

@@ -9,7 +9,7 @@ from django.http import HttpResponse
 @login_required(login_url='usuarios:login')
 def homepage(request):
     user = request.user
-    posts = Post.objects.all()
+    posts = Post.objects.order_by('-postado') #ordenandos os posts dos mais novos,pro mais velhos   
     usuarios = User.objects.all()
     perfil = request.user.perfil
     imagem_perfil_url = perfil.imagem_perfil.url
@@ -22,20 +22,17 @@ def sair (request):
 
 @login_required(login_url='usuarios:login')
 def perfil(request,usuario_solicitado):
-    user = User.objects.get(username=usuario_solicitado)
-    perfil = user.perfil
-    imagem_perfil_url = perfil.imagem_perfil.url
+    usuario_perfil = User.objects.get(username=usuario_solicitado)
     posts_usuario = Post.obter_posts_do_usuario(usuario_solicitado)
-    contexto = {'imagem_perfil_url': imagem_perfil_url, 'user':user,'posts_do_usuario': posts_usuario }
+    contexto = {'usuario_perfil':usuario_perfil   ,'posts_do_usuario': posts_usuario }
     return render(request,'perfil.html',contexto)
 
 @login_required(login_url='usuarios:login')
 def upload_post(request):
     if request.method == 'POST':
-        titulo=request.POST.get('titulo')
         txt_post= request.POST.get('texto_conteudo')
         autor_post = request.user
-        post = Post.objects.create(autor=autor_post, conteudo=txt_post,titulo=titulo)
+        post = Post.objects.create(autor=autor_post, conteudo=txt_post)
         return redirect('feed:homepage')
     else:
 
@@ -51,5 +48,4 @@ def upload_comentario(request,post_id):
         comentario = Comentario.objects.create(autor=autor_comentario, conteudo=conteudo_comentario, post=post_comentado)
         return redirect('feed:homepage')
     else:
-
-        return redirect('feed:meuperfil')
+        return HttpResponse("Vtmnccc")
