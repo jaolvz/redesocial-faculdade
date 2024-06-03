@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import Post, Comentario
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 
 
 
@@ -15,6 +15,17 @@ def homepage(request):
     imagem_perfil_url = perfil.imagem_perfil.url
     contexto = {'imagem_perfil_url': imagem_perfil_url,'user':user, 'usuarios':usuarios, 'posts':posts}
     return render(request, 'homepage.html', contexto)
+
+@login_required(login_url='usuarios:login')
+def atualizar_homepage(request):
+    user = request.user
+    posts = Post.objects.order_by('-postado') #ordenandos os posts dos mais novos,pro mais velhos   
+    usuarios = User.objects.all()
+    perfil = request.user.perfil
+    imagem_perfil_url = perfil.imagem_perfil.url
+    contexto = {'imagem_perfil_url': imagem_perfil_url,'user':user, 'usuarios':usuarios, 'posts':posts}
+    return JsonResponse(contexto)
+
 
 def sair (request):
     request.session.flush()

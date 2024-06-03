@@ -4,7 +4,7 @@ from django.utils import timezone
 from django.contrib.auth.models import User
 
 
-class Post(models.Model):
+class Post(models.Model):   
 
     #atribuindo um post a um usuario e on_delete cascade= usario deletado, posts deletados. 
     autor = models.ForeignKey(User,on_delete=models.CASCADE)
@@ -19,6 +19,7 @@ class Post(models.Model):
         user = User.objects.get(username=username)
         posts_do_usuario = Post.objects.filter(autor=user)
         return posts_do_usuario.order_by('-postado')
+
         
     def get_dataformatada(self):
         now = timezone.now()

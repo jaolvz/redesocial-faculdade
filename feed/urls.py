@@ -8,7 +8,7 @@ urlpatterns = [
         path('homepage/',views.homepage ,name='homepage'),
         path('sair/', views.sair , name='sair'),
         path('@<str:usuario_solicitado>/', views.perfil, name='perfil'),
-        path('upload/', views.upload_post, name='upload_post'),
+        path('upload_post/', views.upload_post, name='upload_post'),
         path('upload_comentario/<int:post_id>/', views.upload_comentario, name='upload_comentario'),
 
 ]

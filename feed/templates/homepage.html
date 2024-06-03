@@ -69,32 +69,29 @@
                     <div class="post_conteudo">
                         <p>{{post.conteudo}}</p>
                     </div>
-                    <div class="post_comentarios">
+
+                    <div id="post_comentarios" class="post_comentarios">
                         
                         {% for comentario in post.comentarios.all %}
 
-                        <div class="comentario">
-                           
-                            {% if comentario.autor.perfil.imagem_perfil %}
-                            <img src="{{ comentario.autor.perfil.imagem_perfil.url }}" alt="Imagem de Perfil">
-                        {% endif %}  
-                                <div class="comentario_informacoes">
-                                    <h3>{{comentario.autor.first_name}} - @{{comentario.autor.username}}</h3>
-                                    <p>{{comentario.conteudo}}</p>
-                                    
-                                </div>
+                            <div class="comentario">  
+                                {% if comentario.autor.perfil.imagem_perfil %}
+                                <img src="{{ comentario.autor.perfil.imagem_perfil.url }}" alt="Imagem de Perfil">
+                            {% endif %}  
+                                    <div class="comentario_informacoes">
+                                        <h3>{{comentario.autor.first_name}} - @{{comentario.autor.username}}</h3>
+                                        <p>{{comentario.conteudo}}</p>
+                                        
+                                    </div>
+                            </div>
 
-                            
-                        
-                        </div>
                         {%endfor%}
-
                     </div>
  
                     <form  class="form_enviarComentario"  action="{% url 'feed:upload_comentario' post.id %}" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
                         <textarea   required     placeholder="Comente..."  name="conteudo_comentario" ></textarea>
-                        <input type="submit" value="comentar">
+                        <input id="enviar_comentario" type="submit" value="comentar">
                     </form>
 
                 </div>
@@ -106,4 +103,5 @@
     </main>
 
 </body>
+
 </html>

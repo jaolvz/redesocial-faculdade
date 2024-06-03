@@ -11,13 +11,13 @@
     {% if user.is_authenticated %}
         <script>window.location.href = "{% url 'feed:homepage' %}";</script>
     {% else %}
-    <div class="cabeçalho">
+    <header class="cabeçalho">
       
          <h1>FACULbook</h1>
         <div class="login_cadastro">  <a href="{% url 'usuarios:login' %}"> <button>Entrar</button></a>
             <a href="{% url 'usuarios:cadastro' %}"> <button>Criar conta</button> </a>
         </div>
-    </div>
+    </header>
     <div class="slider">
         <div class="conteudo">
             <h1>FACULbook</h1>
