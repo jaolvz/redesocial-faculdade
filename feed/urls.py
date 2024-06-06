@@ -9,6 +9,7 @@ urlpatterns = [
         path('sair/', views.sair , name='sair'),
         path('@<str:usuario_solicitado>/', views.perfil, name='perfil'),
         path('upload_post/', views.upload_post, name='upload_post'),
+        path('excluir_post/<int:post_id>/', views.excluir_post, name='excluir_post'),
         path('upload_comentario/<int:post_id>/', views.upload_comentario, name='upload_comentario'),
 
 ]

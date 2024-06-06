@@ -16,16 +16,6 @@ def homepage(request):
     contexto = {'imagem_perfil_url': imagem_perfil_url,'user':user, 'usuarios':usuarios, 'posts':posts}
     return render(request, 'homepage.html', contexto)
 
-@login_required(login_url='usuarios:login')
-def atualizar_homepage(request):
-    user = request.user
-    posts = Post.objects.order_by('-postado') #ordenandos os posts dos mais novos,pro mais velhos   
-    usuarios = User.objects.all()
-    perfil = request.user.perfil
-    imagem_perfil_url = perfil.imagem_perfil.url
-    contexto = {'imagem_perfil_url': imagem_perfil_url,'user':user, 'usuarios':usuarios, 'posts':posts}
-    return JsonResponse(contexto)
-
 
 def sair (request):
     request.session.flush()
@@ -46,8 +36,17 @@ def upload_post(request):
         post = Post.objects.create(autor=autor_post, conteudo=txt_post)
         return redirect('feed:homepage')
     else:
-
         return redirect('feed:meuperfil')
+    
+@login_required(login_url='usuario:login')
+def excluir_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    if request.method == 'POST':
+        post.delete()
+        return redirect('feed:homepage')
+    else:
+        return HttpResponse("Vtmnccc")
+
 
 
 @login_required(login_url='usuarios:login')

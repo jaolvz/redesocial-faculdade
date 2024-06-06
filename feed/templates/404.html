@@ -1,0 +1,29 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'basico/css/basico.css'%}">
+    <title>Document</title>
+</head>
+<body>
+    <header> 
+        <div class="logo"><h1>Faculbook</h1></div>
+        {% if user.is_authenticated%}
+        <a href="{% url 'feed:perfil' request.user.username %}"><div class="infos"> 
+            <div>  {% if user.perfil.imagem_perfil %}
+                <img src="{{user.perfil.imagem_perfil.url }}" alt="Imagem de Perfil">
+            {% endif %}  <h4>{{user.username}}</h4></div></a>
+        <a href="{% url 'feed:sair' %}">Sair</a></div>
+        {%endif%}
+    </header>
+
+    <main class="main_404">
+
+        <h1>404 - Página não encontrada.</h1>
+        <p>A página que você procura não foi encontrada.</p>
+    </main>
+
+</body>
+</html>

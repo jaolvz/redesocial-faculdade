@@ -31,7 +31,7 @@ def cadastro(request):
             perfil.imagem_perfil = caminho_imagem
             perfil.save() 
 
-        return HttpResponse ("Usuário cadastrado com sucesso!")
+        return redirect ('usuarios:login')
 
 def login(request):
     if request.method=="GET":

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Facultech - Cadastro</title>
+    <title>Faculbook- Cadastro</title>
     <link rel="stylesheet" href="{% static 'usuarios/css/cadastro.css'%}">
 </head>
 <body>
@@ -12,7 +12,7 @@
         <script>window.location.href = "{% url 'feed:homepage' %}";</script>
     {% else %}
     <header>
-        <h1>Facultech</h1>
+        <a href="{% url 'home:home' %}">  <h1>Faculbook</h1></a>
     </header>
 
    <main>

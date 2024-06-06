@@ -91,7 +91,22 @@ header{
     .post_cabecalho{
         display: flex;
         align-items: center;
+    position: relative;    }
+
+    .btn_excluir{
+        position: absolute;
+        right: 20px;
+
     }
+    .btn_excluir button{
+        width: 100%;
+        height: 100%;
+        padding: 10px;
+        background-color: var(--fundoComentarios);
+        color: var(--font);
+        border: none;
+    }
+
     .informacoes_usuario_post{
         padding-left: 20px;
         width: 100%;
@@ -184,3 +199,16 @@ header{
     
     }
     
+
+.main_404{
+    font-family: fonteLogo;
+    height: 80vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+

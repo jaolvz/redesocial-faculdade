@@ -18,12 +18,6 @@
         <a href="{% url 'feed:sair' %}">Sair</a></div>
     </header>
     <main>
-        <div class="esquerdaMain">
-            <ul>
-                <li>Inicio</li>
-                <li>Grupos</li>
-           </ul>
-        </div>
         <div class="direitaMain">
             <h4>Todos usuários</h4>    
            <ul>
@@ -58,6 +52,15 @@
 
                 <div class="post">
                     <div class="post_cabecalho">
+
+                        {%if request.user.username == post.autor.username%}
+                         <form action="{% url 'feed:excluir_post' post.id %}"  class="form_msg btn_excluir" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <button>Exluir</button>
+                        </form>   
+                        {%endif%}
+
+
                         {% if post.autor.perfil.imagem_perfil %}
                         <img src="{{ post.autor.perfil.imagem_perfil.url }}" alt="Imagem de Perfil">
                         {% endif %} 
